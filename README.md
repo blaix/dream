@@ -232,8 +232,8 @@ MyApp.routes[Chore] do
 end
 ```    
 
-Named capture groups are passed as keyword arguments to the specified method.
-Query parameters and request data are also passed.
+Named capture groups, query parameters, and request data are passed as keyword
+arguments to the specified method.
 
 Unless otherwise specified, 200 is used for all successful requests. A
 successful request is any that did not raise an exception. If an exception is
