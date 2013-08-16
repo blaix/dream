@@ -22,7 +22,7 @@ that has an adapter.
 * Store: persist resources (usually to a database).
 * Router: map a REST-like api to the methods on the resource store.
 
-## Plain old ruby objects
+## Plain old ruby objects...
 
 Dream works with plain old ruby objects. For example:
 
@@ -39,6 +39,8 @@ class Chore
   end
 end
 ```
+
+## ...as resources
 
 All you need to expose a complete REST-like API for this object, is to create
 a Dream application and map `Chore` as a resource:
