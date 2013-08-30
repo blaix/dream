@@ -22,7 +22,26 @@ that has an adapter.
 * Store: persist resources (usually to a database).
 * Router: map a REST-like api to the methods on the resource store.
 
-## Plain old ruby objects...
+**Note:** Everything described here is fantasy.
+
+## Powerful routing
+
+At minimums all you have to define to get a full API for a resource is a route:
+
+```ruby
+resource(:chore) do
+  string :name
+  boolean :is_complete
+end
+```
+
+That's it. You have a full API that can persist chores. The route maps URLs as
+well as persistance.
+
+What if you have more complex logic? Create a model for the resource as a plain
+old ruby object...
+
+## Models
 
 Dream works with plain old ruby objects. For example:
 
@@ -40,31 +59,21 @@ class Chore
 end
 ```
 
-## ...as resources
-
-All you need to expose a complete REST-like API for this object, is to create
-a Dream application and map `Chore` as a resource:
+Now update the route to use your model instead of the one that was implicitly
+created for you:
 
 ```ruby
-MyApp = Dream::App.new
-
-MyApp.resources[Chore] do
-  attributes do
-    string "name"
-    boolean "complete?", as: "is_complete", persist: false
-    date "last_completed", readonly: true
-  end
+resource(:chore) do
+  string :name
+  boolean :complete?, as: :is_complete, persist: false
+  date :last_completed, readonly: true
 end
 ```
 
-Now chores can be fetched from and saved to a resource store (usually a
-database - more on that later) through an intuitive API, with `last_completed`
-not writeable via the API, and `complete` exposed via the API but not saved to
-the resource store:
+Now last_completed is not writeable via the API, and `complete` is exposed via
+the API but not saved to the resource store.
 
-```ruby
-MyApp.start
-```
+## Example calls:
 
 ```
 # Create a couple chores:
